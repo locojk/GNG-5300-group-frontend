@@ -172,35 +172,14 @@ yarn-error.log*
 package-lock.json
 .pnpm-debug.log*
 
+# Next.js output directories
+.next/
+out/
+
 # Logs
 logs
 *.log
 *.log.*
-
-# React Native
-ios/Pods/
-android/.gradle/
-android/app/build/
-android/.idea/
-android/local.properties
-android/.cxx/
-*.iml
-
-# Xcode
-ios/build/
-ios/DerivedData/
-ios/.DS_Store
-ios/*.xcworkspace
-ios/*.xcuserstate
-ios/*.xcuserdata
-
-# Fastlane
-ios/fastlane/report.xml
-ios/fastlane/Preview.html
-ios/fastlane/screenshots/
-fastlane/report.xml
-fastlane/screenshots/
-fastlane/Preview.html
 
 # Buck
 buck-out/
