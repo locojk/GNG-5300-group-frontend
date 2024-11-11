@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_5cf8ba2b579e47d790eb45f560d6421e }}/locajk/nextjs-5300-group:${{ github.sha }}
+        tags: index.docker.io/locajk/nextjs-5300-group:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'gng-5300-group-frontend'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0a25c4fc69c94731b4970621cc90b577 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_5cf8ba2b579e47d790eb45f560d6421e }}/locajk/nextjs-5300-group:${{ github.sha }}'
+        images: 'index.docker.io/locajk/nextjs-5300-group:${{ github.sha }}'
