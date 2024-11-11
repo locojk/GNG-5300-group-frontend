@@ -1,0 +1,45 @@
+name: CodeQL
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+  schedule:
+    - cron: '56 5 * * 1'
+  workflow_call:
+
+permissions:
+  contents: read
+  security-events: write  # Explicitly grant permissions for security events
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20  # Use Node.js 20 to match the project's environment
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2  # Updated to v2 for latest features and stability
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
