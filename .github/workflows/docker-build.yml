@@ -24,7 +24,7 @@ jobs:
       - name: Build container image
         uses: docker/build-push-action@v3
         with:
-          push: true
+          push: false
           tags: index.docker.io/locajk/nextjs-fastapi:${{ github.sha }}
           file: ./Dockerfile
           
