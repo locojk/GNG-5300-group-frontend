@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy only the package files to install dependencies
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile --prefer-frozen-lockfile
+RUN npm ci
 
 ### Builder ###
 FROM base AS builder
