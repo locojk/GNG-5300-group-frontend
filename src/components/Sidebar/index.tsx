@@ -46,7 +46,7 @@ const menuGroups = [
           </svg>
         ),
         label: "Dashboard",
-        route: "#",
+        route: "/dashboard",
       },
       {
         icon: (
@@ -88,7 +88,7 @@ const menuGroups = [
           </svg>
         ),
         label: "Profile",
-        route: "/profile",
+        route: "/user/profile",
       },
       {
         icon: (
