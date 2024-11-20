@@ -95,6 +95,26 @@ const menuGroups = [
           <svg
             className="fill-current"
             width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 0.75C4.44365 0.75 0.75 4.44365 0.75 9C0.75 13.5564 4.44365 17.25 9 17.25C13.5564 17.25 17.25 13.5564 17.25 9C17.25 4.44365 13.5564 0.75 9 0.75ZM9 15.75C5.28065 15.75 2.25 12.7194 2.25 9C2.25 5.28065 5.28065 2.25 9 2.25C12.7194 2.25 15.75 5.28065 15.75 9C15.75 12.7194 12.7194 15.75 9 15.75ZM8.25 4.5H9.75V9.75H8.25V4.5ZM8.25 11.25H9.75V12.75H8.25V11.25Z"
+              fill=""
+            />
+          </svg>
+        ),
+        label: "Feedback",
+        route: "/feedback",
+      },
+
+      {
+        icon: (
+          <svg
+            className="fill-current"
+            width="18"
             height="19"
             viewBox="0 0 18 19"
             fill="none"
@@ -125,6 +145,8 @@ const menuGroups = [
         label: "Settings",
         route: "/settings",
       },
+      
+      
     ],
   },
 ];
