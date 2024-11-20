@@ -5,9 +5,9 @@ tree -I "node_modules|fonts|*.woff|*.woff2|*.ttf|*.eot|*.svg|*.png|*.jpg|*.jpeg|
 
 # run service:
 
-pnpm install
+npm install
 
-pnpm run dev
+npm run dev
 
 
 
