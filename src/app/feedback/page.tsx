@@ -17,7 +17,37 @@ export default function FeedbackPage() {
       },
     },
     xaxis: {
-      categories: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+      categories: [
+        "Week 1",
+        "Week 2",
+        "Week 3",
+        "Week 4",
+        "Week 5",
+      ],
+      labels: {
+        style: {
+          fontSize: "12px",
+          colors: ["#333"],
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Workout Time (minutes)",
+        style: {
+          fontSize: "14px",
+          color: "#333",
+        },
+      },
+      labels: {
+        style: {
+          fontSize: "14px",
+          colors: ["#333"],
+        },
+        formatter: function (value) {
+          return value.toFixed(1) + " mins";
+        },
+      },
     },
     stroke: {
       curve: "smooth",
@@ -39,7 +69,7 @@ export default function FeedbackPage() {
   const workoutChartSeries = [
     {
       name: "Workout Progress",
-      data: [2, 4, 6, 5, 8],
+      data: [30, 45, 60, 50, 70],
     },
   ];
 
@@ -51,7 +81,37 @@ export default function FeedbackPage() {
       },
     },
     xaxis: {
-      categories: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+      categories: [
+        "Week 1",
+        "Week 2",
+        "Week 3",
+        "Week 4",
+        "Week 5",
+      ],
+      labels: {
+        style: {
+          fontSize: "12px",
+          colors: ["#333"],
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Calories Eaten (kcal)",
+        style: {
+          fontSize: "14px",
+          color: "#333",
+        },
+      },
+      labels: {
+        style: {
+          fontSize: "14px",
+          colors: ["#333"],
+        },
+        formatter: function (value) {
+          return value.toFixed(1) + " kcal";
+        },
+      },
     },
     stroke: {
       curve: "smooth",
@@ -73,7 +133,7 @@ export default function FeedbackPage() {
   const dietChartSeries = [
     {
       name: "Diet Progress",
-      data: [3, 5, 4, 6, 7],
+      data: [1800, 2000, 1900, 2100, 2200],
     },
   ];
 
@@ -130,10 +190,10 @@ export default function FeedbackPage() {
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">AI-Generated Personalized Feedback</h2>
             <p className="text-gray-700 mb-4">
-              Based on your recent activity, you have shown consistent improvement in your workout routine. Keep up the good work! Consider adding more variety to your exercises to improve overall fitness.
+              You're making great progress! Your workout time has increased consistently each week, demonstrating dedication and persistence. Keep pushing yourself, but remember to rest and avoid overtraining.
             </p>
             <p className="text-gray-700">
-              Your diet progress is also showing positive trends. Maintaining a balanced intake of proteins, carbohydrates, and fats will further enhance your performance. Keep focusing on nutrient-rich foods!
+              Your diet is also improving. Consistently managing your calorie intake will help you achieve your fitness goals. Consider balancing your diet with more protein to aid muscle recovery. Great job, and keep it up!
             </p>
           </div>
         </div>
