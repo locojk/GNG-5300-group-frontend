@@ -48,6 +48,26 @@ const menuGroups = [
         label: "Dashboard",
         route: "/dashboard",
       },
+      // {
+      //   icon: (
+      //     <svg
+      //       className="fill-current"
+      //       width="18"
+      //       height="18"
+      //       viewBox="0 0 18 18"
+      //       fill="none"
+      //       xmlns="http://www.w3.org/2000/svg"
+      //     >
+      //       <path
+      //         d="M12 2C7.59 2 4 5.59 4 10c0 1.68.47 3.25 1.28 4.61L4 20l5.5-1.32C10.81 19.56 11.38 20 12 20c4.41 0 8-3.59 8-8s-3.59-8-8-8zM9 11H7v-1h2v1zm4 0h-2v-1h2v1zm4 0h-2v-1h2v1z"
+      //         fill=""
+      //       /> 
+      //     </svg>
+      //   ),
+      //   label: "AI-Assistant",
+      //   route: "/assistant",
+      // },
+
       {
         icon: (
           <svg
@@ -59,14 +79,15 @@ const menuGroups = [
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M12 2C7.59 2 4 5.59 4 10c0 1.68.47 3.25 1.28 4.61L4 20l5.5-1.32C10.81 19.56 11.38 20 12 20c4.41 0 8-3.59 8-8s-3.59-8-8-8zM9 11H7v-1h2v1zm4 0h-2v-1h2v1zm4 0h-2v-1h2v1z"
+              d="M9 0.75C4.44365 0.75 0.75 4.44365 0.75 9C0.75 13.5564 4.44365 17.25 9 17.25C13.5564 17.25 17.25 13.5564 17.25 9C17.25 4.44365 13.5564 0.75 9 0.75ZM9 15.75C5.28065 15.75 2.25 12.7194 2.25 9C2.25 5.28065 5.28065 2.25 9 2.25C12.7194 2.25 15.75 5.28065 15.75 9C15.75 12.7194 12.7194 15.75 9 15.75ZM8.25 4.5H9.75V9.75H8.25V4.5ZM8.25 11.25H9.75V12.75H8.25V11.25Z"
               fill=""
-            /> 
+            />
           </svg>
         ),
-        label: "AI-Assistant",
-        route: "/assistant",
+        label: "Feedback",
+        route: "/feedback",
       },
+
       {
         icon: (
           <svg
@@ -89,25 +110,6 @@ const menuGroups = [
         ),
         label: "Profile",
         route: "/user/profile",
-      },
-      {
-        icon: (
-          <svg
-            className="fill-current"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 0.75C4.44365 0.75 0.75 4.44365 0.75 9C0.75 13.5564 4.44365 17.25 9 17.25C13.5564 17.25 17.25 13.5564 17.25 9C17.25 4.44365 13.5564 0.75 9 0.75ZM9 15.75C5.28065 15.75 2.25 12.7194 2.25 9C2.25 5.28065 5.28065 2.25 9 2.25C12.7194 2.25 15.75 5.28065 15.75 9C15.75 12.7194 12.7194 15.75 9 15.75ZM8.25 4.5H9.75V9.75H8.25V4.5ZM8.25 11.25H9.75V12.75H8.25V11.25Z"
-              fill=""
-            />
-          </svg>
-        ),
-        label: "Feedback",
-        route: "/feedback",
       },
 
       {

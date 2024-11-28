@@ -1,60 +1,52 @@
-// import React from "react";
+"use client";
 
-// interface TodayWorkoutProps {
-//   workoutName: string;
-//   duration: string;
-//   exercises: string[];
-//   onStartWorkout: () => void;
-// }
-
-// const TodayWorkout: React.FC<TodayWorkoutProps> = ({
-//   workoutName,
-//   duration,
-//   exercises,
-//   onStartWorkout,
-// }) => {
-//   return (
-//     <div className="rounded-lg border border-gray-300 bg-white p-5 shadow-md dark:border-gray-700 dark:bg-gray-800">
-//       <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
-//         Today’s Workout: {workoutName}
-//       </h3>
-//       <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-//         Duration: {duration}
-//       </p>
-
-//       <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
-//         Exercises:
-//       </h4>
-//       <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 mb-4">
-//         {exercises.map((exercise, index) => (
-//           <li key={index}>{exercise}</li>
-//         ))}
-//       </ul>
-
-//       <button
-//         onClick={onStartWorkout}
-//         className="w-full py-2 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-//       >
-//         Start Workout
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default TodayWorkout;
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const TodayWorkout: React.FC = () => {
-  const workoutData = {
+  const [workoutData, setWorkoutData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fallbackData = {
     workoutName: "Upper Body Strength",
     duration: "45 minutes",
     exercises: ["Push-ups", "Pull-ups", "Squats", "Plank"],
   };
 
+  useEffect(() => {
+    const fetchWorkoutData = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai/today-workout`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch workout data");
+        }
+        const data = await response.json();
+        setWorkoutData(data);
+      } catch (err: any) {
+        console.error("Error fetching workout data:", err);
+
+        // Set test data as response data
+        setWorkoutData(fallbackData);
+
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorkoutData();
+  }, []);
+
   const handleStartWorkout = () => {
     console.log("Workout started!");
   };
+
+  if (loading) {
+    return <p>Loading today’s workout...</p>;
+  }
+
+  if (!workoutData) {
+    return <p>No workout data available.</p>;
+  }
 
   return (
     <div>
@@ -62,7 +54,7 @@ const TodayWorkout: React.FC = () => {
       <p>Duration: {workoutData.duration}</p>
       <h4 className="mt-2 font-semibold">Exercises:</h4>
       <ul>
-        {workoutData.exercises.map((exercise, index) => (
+        {workoutData.exercises.map((exercise: string, index: number) => (
           <li key={index}>• {exercise}</li>
         ))}
       </ul>
@@ -77,3 +69,6 @@ const TodayWorkout: React.FC = () => {
 };
 
 export default TodayWorkout;
+
+
+

@@ -2,7 +2,6 @@
 
 import React from "react";
 import TodayWorkout from "@/components/Workout/TodayWorkout";
-import WeeklyProgress from "@/components/Workout/WeeklyProgress";
 
 // Card wrapper component
 const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -21,10 +20,10 @@ const Summary: React.FC = () => {
       </Card>
 
       {/* Your Work Progress (Full Width) */}
-      <Card>
+      {/* <Card>
         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Your Work Progress</h2>
         <WeeklyProgress />
-      </Card>
+      </Card> */}
     </div>
   );
 };
