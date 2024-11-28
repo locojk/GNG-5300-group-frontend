@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -32,6 +32,9 @@ const LoginPage: React.FC = () => {
 
       const data = await response.json();
       console.log("Login successful:", data);
+
+      // Save the token securely (preferably in cookies)
+      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
@@ -53,23 +56,21 @@ const LoginPage: React.FC = () => {
         <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
           Login
         </h2>
-        {error && (
-          <p className="text-red-600 text-center mb-4">{error}</p>
-        )}
+        {error && <p className="text-red-600 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="username"
+              htmlFor="email"
             >
-              Username
+              Email
             </label>
             <input
-              type="text"
-              id="username"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              id="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
               disabled={isLoading} // Disable input during loading
             />
@@ -115,3 +116,4 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+

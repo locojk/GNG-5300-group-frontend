@@ -1,17 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [isCheckingLogin, setIsCheckingLogin] = useState(true);
+
+  useEffect(() => {
+    // Function to check if the user is logged in by verifying the token in cookies
+    const checkLogin = () => {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("authToken="))
+        ?.split("=")[1];
+
+      if (token) {
+        // If token exists, redirect to dashboard
+        router.push("/dashboard");
+      } else {
+        // If no token, allow rendering the page
+        setIsCheckingLogin(false);
+      }
+    };
+
+    checkLogin();
+  }, [router]);
 
   const handleSetUp = () => {
-    // 跳转到注册页面，带上 email 参数
+    // Navigate to the register page with the email as a parameter
     router.push(`/register?email=${encodeURIComponent(email)}`);
   };
+
+  // Show a loading indicator while checking login status
+  if (isCheckingLogin) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        <p>Checking login status...</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -66,16 +96,17 @@ export default function Home() {
         {/* Features */}
         <div className="flex flex-wrap justify-center gap-6 text-sm">
           <p className="flex items-center gap-2">
-            <span className="text-green-400">✔</span> feature 1
+            <span className="text-green-400">✔</span> Feature 1
           </p>
           <p className="flex items-center gap-2">
-            <span className="text-green-400">✔</span> feature 2
+            <span className="text-green-400">✔</span> Feature 2
           </p>
           <p className="flex items-center gap-2">
-            <span className="text-green-400">✔</span> feature 3
+            <span className="text-green-400">✔</span> Feature 3
           </p>
         </div>
       </div>
     </div>
   );
 }
+
