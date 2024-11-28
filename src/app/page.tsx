@@ -1,101 +1,112 @@
+"use client";
+
 import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [isCheckingLogin, setIsCheckingLogin] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    // Function to check if the user is logged in by verifying the token in cookies
+    const checkLogin = () => {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("authToken="))
+        ?.split("=")[1];
+
+      if (token) {
+        // If token exists, redirect to dashboard
+        router.push("/dashboard");
+      } else {
+        // If no token, allow rendering the page
+        setIsCheckingLogin(false);
+      }
+    };
+
+    checkLogin();
+  }, [router]);
+
+  const handleSetUp = () => {
+    // Navigate to the register page with the email as a parameter
+    router.push(`/register?email=${encodeURIComponent(email)}`);
+  };
+
+  // Show a loading indicator while checking login status
+  if (isCheckingLogin) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        <p>Checking login status...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="relative flex items-center justify-center min-h-screen bg-cover bg-center text-white"
+      style={{ backgroundImage: "url('/images/background.jpg')" }}
+    >
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+
+      {/* Login Button */}
+      <div className="absolute top-8 right-8">
+        <a
+          href="/login"
+          className="bg-transparent border border-white text-white px-4 py-2 rounded-md hover:bg-white hover:text-black transition duration-300"
+        >
+          Log In
+        </a>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl p-4">
+        {/* Logo */}
+        <Image src="/logo.svg" alt="Logo" width={150} height={50} className="mb-8" />
+
+        {/* Heading */}
+        <h1 className="text-4xl font-bold mb-4">
+          We’ll Do the Heavy Lifting to Grow Your Personal Training Business
+        </h1>
+
+        {/* Subheading */}
+        <p className="text-lg mb-6">
+          Keep your clients easily on track with their fitness goals anytime and from anywhere
+        </p>
+
+        {/* Email Input and CTA Button */}
+        <div className="flex items-center gap-4 w-full max-w-md mb-8">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="flex-1 p-3 rounded-md text-gray-800"
+          />
+          <button
+            onClick={handleSetUp}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Set Up
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Features */}
+        <div className="flex flex-wrap justify-center gap-6 text-sm">
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 1
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 2
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 3
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
+
