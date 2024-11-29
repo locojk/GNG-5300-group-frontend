@@ -12,7 +12,10 @@ const LoginPage: React.FC = () => {
 
   // Check if the user is already logged in
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("authToken="))
+      ?.split("=")[1];
     if (token) {
       // Redirect to dashboard if already logged in
       router.push("/dashboard");
@@ -44,7 +47,6 @@ const LoginPage: React.FC = () => {
 
       // Save the token and user ID securely
       document.cookie = `authToken=${data.token}; path=/; secure`; // Save token in cookies
-      localStorage.setItem("authToken", data.token);
       localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
       localStorage.setItem("username", data.username); // Save username in localStorage
 

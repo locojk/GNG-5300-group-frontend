@@ -116,7 +116,7 @@ const UserProfilePage: React.FC = () => {
 
   const handleEditClick = () => setIsEditing(true);
 
-  const handleContinue = () => console.log("Continue to next step");
+  const handleContinue = () => router.push("/settings");
 
   if (loading) {
     return (

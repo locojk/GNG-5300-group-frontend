@@ -1,47 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [isCheckingLogin, setIsCheckingLogin] = useState(true);
 
   useEffect(() => {
-    // Function to check if the user is logged in by verifying the token in cookies
-    const checkLogin = () => {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("authToken="))
-        ?.split("=")[1];
+    // Check if the token exists in cookies
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("authToken="))
+      ?.split("=")[1];
 
-      if (token) {
-        // If token exists, redirect to dashboard
-        router.push("/dashboard");
-      } else {
-        // If no token, allow rendering the page
-        setIsCheckingLogin(false);
-      }
-    };
-
-    checkLogin();
+    // If token exists, navigate to the dashboard
+    if (token) {
+      router.push("/dashboard");
+      console.log("Token exists:", token);
+    }
   }, [router]);
 
   const handleSetUp = () => {
     // Navigate to the register page with the email as a parameter
     router.push(`/register?email=${encodeURIComponent(email)}`);
   };
-
-  // Show a loading indicator while checking login status
-  if (isCheckingLogin) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-black text-white">
-        <p>Checking login status...</p>
-      </div>
-    );
-  }
 
   return (
     <div
@@ -96,4 +80,8 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
 

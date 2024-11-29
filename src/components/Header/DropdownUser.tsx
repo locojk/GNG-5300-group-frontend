@@ -22,6 +22,8 @@ const DropdownUser = () => {
     // Clear all auth-related data from localStorage
     localStorage.clear();
 
+    document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+
     // Redirect to login page
     router.push("/login");
   };
