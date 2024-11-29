@@ -1,27 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Summary from "@/components/Dashboard/Summary";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export default function Dashboard() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      router.push("/");
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, [router]);
+    // Check for the auth token in cookies
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("authToken="))
+      ?.split("=")[1];
 
-  if (isAuthenticated === null) {
-    // Render a loading state while checking authentication
-    return <p>Loading...</p>;
-  }
+    // if (!token) {
+    //   // If no token, redirect to the home page
+    //   router.push("/");
+    // }
+  }, [router]);
 
   return (
     <DefaultLayout>
