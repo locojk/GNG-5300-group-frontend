@@ -213,7 +213,7 @@ const TodayWorkout: React.FC = () => {
 
       {/* Image Section */}
       {!workoutStarted && (
-        <div className="md:w-1/3 w-full mt-6 md:mt-0 flex justify-center">
+        <div className="md:w-1/3 w-full mt-6 md:mt-0 flex justify-center md:ml-6">
           <img
             src="/images/plan.png"
             alt="Workout Image"

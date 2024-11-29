@@ -9,7 +9,7 @@ export default function PersonalizedFeedback() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">AI-Generated Personalized Feedback</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Feedback</h2>
       <ul className="list-disc pl-5 space-y-2">
         {feedback.map((item, index) => (
           <li key={index} className="text-gray-700">
