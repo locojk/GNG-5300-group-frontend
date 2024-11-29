@@ -144,7 +144,7 @@ const menuGroups = [
             </defs>
           </svg>
         ),
-        label: "Settings",
+        label: "Workout Settings",
         route: "/settings",
       },
       
