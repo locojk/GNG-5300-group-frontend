@@ -47,7 +47,6 @@ const LoginPage: React.FC = () => {
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
       localStorage.setItem("username", data.username); // Save username in localStorage
-      console.log("username", data.username);
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");

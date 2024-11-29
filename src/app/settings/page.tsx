@@ -11,6 +11,11 @@ const SettingsPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+  if (!userId) {
+    throw new Error("User ID not found in localStorage.");
+  }
 
   useEffect(() => {
     const fetchFitnessGoal = async () => {
@@ -19,6 +24,7 @@ const SettingsPage: React.FC = () => {
         setError(null);
 
         const token = localStorage.getItem("authToken");
+        console.log(token);
         if (!token) {
           setError("Missing authentication token. Please log in.");
           return;
