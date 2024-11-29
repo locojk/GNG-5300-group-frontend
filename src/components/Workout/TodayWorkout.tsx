@@ -16,7 +16,7 @@ const TodayWorkout: React.FC = () => {
   useEffect(() => {
     const fetchWorkoutData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai_chat/ai_chat`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai_chat/query`);
         if (!response.ok) {
           throw new Error("Failed to fetch workout data");
         }

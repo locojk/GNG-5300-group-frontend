@@ -94,7 +94,7 @@ export default function Home() {
         </div>
 
         {/* Features */}
-        <div className="flex flex-wrap justify-center gap-6 text-sm">
+        {/* <div className="flex flex-wrap justify-center gap-6 text-sm">
           <p className="flex items-center gap-2">
             <span className="text-green-400">✔</span> Feature 1
           </p>
@@ -104,7 +104,7 @@ export default function Home() {
           <p className="flex items-center gap-2">
             <span className="text-green-400">✔</span> Feature 3
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
