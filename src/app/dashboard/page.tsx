@@ -13,15 +13,8 @@ export default function Dashboard() {
     const token = localStorage.getItem("authToken");
     if (!token) {
       router.push("/");
-    } else {
-      setIsAuthenticated(true);
     }
   }, [router]);
-
-  if (isAuthenticated === null) {
-    // Render a loading state while checking authentication
-    return <p>Loading...</p>;
-  }
 
   return (
     <DefaultLayout>
