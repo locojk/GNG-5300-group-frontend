@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const LoginPage: React.FC = () => {
@@ -9,6 +9,15 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      // Redirect to dashboard if already logged in
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,8 +42,12 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
       console.log("Login successful:", data);
 
-      // Save the token securely (preferably in cookies)
-      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
+      // Save the token and user ID securely
+      document.cookie = `authToken=${data.token}; path=/; secure`; // Save token in cookies
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
+      localStorage.setItem("username", data.username); // Save username in localStorage
+      console.log("username", data.username);
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
@@ -116,4 +129,6 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
+
 
