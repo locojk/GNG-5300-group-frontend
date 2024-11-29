@@ -76,6 +76,19 @@ export default function Home() {
             Set Up
           </button>
         </div>
+
+        {/* Features */}
+        <div className="flex flex-wrap justify-center gap-6 text-sm">
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 1
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 2
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="text-green-400">✔</span> Feature 3
+          </p>
+        </div>
       </div>
     </div>
   );
