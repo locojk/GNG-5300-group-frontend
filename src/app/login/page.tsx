@@ -33,8 +33,10 @@ const LoginPage: React.FC = () => {
       const data = await response.json();
       console.log("Login successful:", data);
 
-      // Save the token securely (preferably in cookies)
-      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
+      // Save the token and user ID securely
+      document.cookie = `authToken=${data.token}; path=/; secure`;// Save token in cookie
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
@@ -116,4 +118,5 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
 
