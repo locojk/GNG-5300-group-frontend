@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import {isObject} from "node:util";
 
 const RegisterPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -40,19 +41,30 @@ const RegisterPage: React.FC = () => {
         },
         body: JSON.stringify({ username, email, password }),
       });
-
+      const data = await response.json();
+      console.log(Object.values(data.detail))
+      const errors = []
+      if(isObject(data.detail)) {
+        Object.values(data.detail).forEach(el=>{
+          el.forEach(item=>{
+            errors.push(item)
+          })
+        })
+        setError(errors.join(","))
+      } else {
+        setError(data.detail)
+      }
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Registration failed");
       }
 
-      const data = await response.json();
       console.log("Registration successful:", data);
 
       // Redirect to login upon successful registration
       router.push("/login");
     } catch (err: any) {
-      setError(err.message || "An error occurred during registration");
+      // setError(err.message || "An error occurred during registration");
     } finally {
       setIsLoading(false); // End loading
     }

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import {isObject} from "node:util";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -24,13 +25,29 @@ const LoginPage: React.FC = () => {
         },
         body: JSON.stringify({ email, password }),
       });
+      console.log(response)
+      const data = await response.json();
+      console.log(Object.values(data.detail))
+      const errors = []
+      if(isObject(data.detail)) {
+        Object.values(data.detail).forEach(el=>{
+          el.forEach(item=>{
+            errors.push(item)
+          })
+        })
+        setError(errors.join(","))
+      } else {
+        setError(data.detail)
+      }
+
 
       if (!response.ok) {
         const data = await response.json();
+        alert(response.statusText)
         throw new Error(data.message || "Invalid credentials");
       }
 
-      const data = await response.json();
+
       console.log("Login successful:", data);
 
       // Save the token and user ID securely
@@ -43,7 +60,7 @@ const LoginPage: React.FC = () => {
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "An error occurred");
+      // setError(err.message || "An error occurred");
     } finally {
       setIsLoading(false); // End loading
     }
