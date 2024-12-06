@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*', // Proxy any request starting with /api/
-        destination: 'http://localhost:8000/api/:path*', // Redirect to backend
+        destination: 'http://40.82.181.182/api/:path*', // Redirect to backend
       },
     ];
   },
