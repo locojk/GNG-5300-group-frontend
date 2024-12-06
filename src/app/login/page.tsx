@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import {isObject} from "node:util";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -9,18 +10,6 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Check if the user is already logged in
-  useEffect(() => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("authToken="))
-      ?.split("=")[1];
-    if (token) {
-      // Redirect to dashboard if already logged in
-      router.push("/dashboard");
-    }
-  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,24 +25,42 @@ const LoginPage: React.FC = () => {
         },
         body: JSON.stringify({ email, password }),
       });
+      console.log(response)
+      const data = await response.json();
+      console.log(Object.values(data.detail))
+      const errors = []
+      if(isObject(data.detail)) {
+        Object.values(data.detail).forEach(el=>{
+          el.forEach(item=>{
+            errors.push(item)
+          })
+        })
+        setError(errors.join(","))
+      } else {
+        setError(data.detail)
+      }
+
 
       if (!response.ok) {
         const data = await response.json();
+        alert(response.statusText)
         throw new Error(data.message || "Invalid credentials");
       }
 
-      const data = await response.json();
+
       console.log("Login successful:", data);
 
       // Save the token and user ID securely
       document.cookie = `authToken=${data.token}; path=/; secure`; // Save token in cookies
       localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
       localStorage.setItem("username", data.username); // Save username in localStorage
+      // Save the token securely (preferably in cookies)
+      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly;`;
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "An error occurred");
+      // setError(err.message || "An error occurred");
     } finally {
       setIsLoading(false); // End loading
     }
@@ -130,6 +137,4 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
-
 
