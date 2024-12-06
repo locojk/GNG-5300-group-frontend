@@ -104,7 +104,7 @@ const TodayWorkout: React.FC = () => {
     if (workoutData && workoutData.Exercises) {
       setWorkoutStarted(true); // Set workoutStarted to true
       setCurrentExerciseIndex(0); // Start with the first exercise
-      setTimer(300); // Set custom timer for the first exercise (300 seconds)
+      setTimer(30); // Reset timer for the first exercise
       setIsTimerRunning(true); // Start the timer
     }
   };
@@ -112,12 +112,8 @@ const TodayWorkout: React.FC = () => {
   const handleNextExercise = () => {
     if (currentExerciseIndex !== null && workoutData?.Exercises) {
       if (currentExerciseIndex < workoutData.Exercises.length - 1) {
-        const nextExerciseIndex = currentExerciseIndex + 1;
-        setCurrentExerciseIndex(nextExerciseIndex);
-  
-        // Set specific timer for each exercise based on index
-        const timers = [300, 200, 250, 200, 300]; // Example timers for each exercise (seconds)
-        setTimer(timers[nextExerciseIndex]); // Set timer for the next exercise
+        setCurrentExerciseIndex(currentExerciseIndex + 1);
+        setTimer(30); // Reset timer for the next exercise
         setIsTimerRunning(true); // Start the timer
       } else {
         setWorkoutFinished(true); // Mark workout as finished
@@ -273,6 +269,40 @@ const TodayWorkout: React.FC = () => {
 };
 
 export default TodayWorkout;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
