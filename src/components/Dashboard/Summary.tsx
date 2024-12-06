@@ -18,12 +18,6 @@ const Summary: React.FC = () => {
         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Today's Workout Plan</h2>
         <TodayWorkout />
       </Card>
-
-      {/* Your Work Progress (Full Width) */}
-      {/* <Card>
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Your Work Progress</h2>
-        <WeeklyProgress />
-      </Card> */}
     </div>
   );
 };
