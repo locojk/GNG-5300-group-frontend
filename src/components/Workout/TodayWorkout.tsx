@@ -37,16 +37,77 @@ const TodayWorkout: React.FC = () => {
   }, []);
 
   const handleStartWorkout = () => {
-    console.log("Workout started!");
+    if (workoutData && workoutData.Exercises) {
+      setWorkoutStarted(true); // Set workoutStarted to true
+      setCurrentExerciseIndex(0); // Start with the first exercise
+      setTimer(300); // Set custom timer for the first exercise (300 seconds)
+      setIsTimerRunning(true); // Start the timer
+    }
   };
 
-  if (loading) {
-    return <p>Loading today’s workout...</p>;
-  }
+  const handleNextExercise = () => {
+    if (currentExerciseIndex !== null && workoutData?.Exercises) {
+      if (currentExerciseIndex < workoutData.Exercises.length - 1) {
+        const nextExerciseIndex = currentExerciseIndex + 1;
+        setCurrentExerciseIndex(nextExerciseIndex);
+  
+        // Set specific timer for each exercise based on index
+        const timers = [300, 200, 250, 200, 300]; // Example timers for each exercise (seconds)
+        setTimer(timers[nextExerciseIndex]); // Set timer for the next exercise
+        setIsTimerRunning(true); // Start the timer
+      } else {
+        setWorkoutFinished(true); // Mark workout as finished
+        setCurrentExerciseIndex(null); // Reset exercise index
+        setIsTimerRunning(false); // Stop the timer
+        handleSaveWorkoutLog(); // Save the workout log after completion
+      }
+    }
+  };
 
-  if (!workoutData) {
-    return <p>No workout data available.</p>;
-  }
+  const exercises = Array.isArray(workoutData?.Exercises)
+    ? workoutData.Exercises
+    : [];
+
+  const handleSaveWorkoutLog = async () => {
+    try {
+      const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("authToken="))
+          ?.split("=")[1];
+      if (!token) {
+        throw new Error("Authentication token not found. Please log in.");
+      }
+
+      // Save the workout log data
+      const workoutLogData = {
+        log_date: new Date().toISOString().split('T')[0],  // Use today's date
+        workout_content: "Yoga and Stretching",  // You can dynamically set this based on your logic
+        total_weight_lost: 0.2,  // You can calculate or dynamically set this
+        total_calories_burnt: workoutData["Estimated Calories Burned"] || 0,  // Fetch calories from workoutData
+        avg_workout_duration: timer,  // Use the timer value for workout duration
+      };
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/daily/workout_logs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(workoutLogData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save workout log.");
+      }
+
+      const result = await response.json();
+      console.log("Workout log saved:", result);
+    } catch (err) {
+      console.error("Error saving workout log:", err);
+    }
+  };
+
+  console.log("Workout Data:", workoutData); // Debugging log to inspect data structure
 
   return (
     <div>
