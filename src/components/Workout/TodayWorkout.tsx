@@ -43,7 +43,7 @@ const TodayWorkout: React.FC = () => {
           throw new Error("Authentication token not found. Please log in.");
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ai_chat/query`, {
+        const response = await fetch(`http://40.82.181.182/api/v1/ai_chat/query`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -151,7 +151,7 @@ const TodayWorkout: React.FC = () => {
         avg_workout_duration: timer,  // Use the timer value for workout duration
       };
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/daily/workout_logs`, {
+      const response = await fetch(`http://40.82.181.182/api/v1/daily/workout_logs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -67,7 +67,7 @@ export default function FeedbackPage() {
         }
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/daily/workout_logs/progress`,
+          `http://40.82.181.182/api/v1/daily/workout_logs/progress`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

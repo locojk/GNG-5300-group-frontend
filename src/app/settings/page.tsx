@@ -31,7 +31,7 @@ const SettingsPage: React.FC = () => {
         }
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/workout/fitness_goal`,
+          `http://40.82.181.182/api/v1/workout/fitness_goal`,
           {
             method: "GET",
             headers: {
@@ -108,7 +108,7 @@ const SettingsPage: React.FC = () => {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/workout/fitness_goal`,
+        `http://40.82.181.182/api/v1/workout/fitness_goal`,
         {
           method: "POST",
           headers: {

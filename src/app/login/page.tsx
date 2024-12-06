@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
     setError(""); // Reset any existing errors
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
+      const response = await fetch(`http://40.82.181.182/api/v1/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

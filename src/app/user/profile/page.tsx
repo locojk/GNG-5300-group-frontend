@@ -34,7 +34,7 @@ const UserProfilePage: React.FC = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/user/profile?user_id=${userId}`,
+          `http://40.82.181.182/api/v1/user/profile?user_id=${userId}`,
           {
             method: "GET",
             headers: {
@@ -89,7 +89,7 @@ const UserProfilePage: React.FC = () => {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/profile/update`,
+        `http://40.82.181.182/api/v1/user/profile/update`,
         {
           method: "PUT",
           headers: {

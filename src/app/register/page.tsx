@@ -33,7 +33,7 @@ const RegisterPage: React.FC = () => {
     setIsLoading(true); // Start loading
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
+      const response = await fetch(`http://40.82.181.182/api/v1/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
