@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
       console.log("Login successful:", data);
 
       // Save the token and user ID securely
-      document.cookie = `authToken=${data.token}; path=/; secure`; // Save token in cookies
+      document.cookie = `authToken=${data.token}; path=/; samesite=None`; // Save token in cookies
       localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
       localStorage.setItem("username", data.username); // Save username in localStorage
 
