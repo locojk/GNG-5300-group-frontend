@@ -47,8 +47,25 @@ const LoginPage: React.FC = () => {
 
       // Save the token and user ID securely
       document.cookie = `authToken=${data.token}; path=/; samesite=None`; // Save token in cookies
+
       localStorage.setItem("userId", data.user_id); // Save user ID in localStorage
       localStorage.setItem("username", data.username); // Save username in localStorage
+
+      // Verify if the token is saved correctly
+      const savedToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("authToken="))
+        ?.split("=")[1];
+
+      console.log("Saved Token:", savedToken); // Log the saved token for debugging
+      console.log("Expected Token:", data.token); // Log the expected token
+
+      if (savedToken !== data.token) {
+        console.error("Token mismatch detected.");
+        console.error("Saved Token:", savedToken);
+        console.error("Expected Token:", data.token);
+        throw new Error("Failed to save the authentication token.");
+      }
 
       // Navigate to the dashboard upon successful login
       router.push("/dashboard");
